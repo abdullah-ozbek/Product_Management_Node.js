@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Unsere Produkte</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row navbar">
+            <div class="col-12">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Startseite</a>
+                    </li>
+                    <% if(displayLink) { %>
+                        <li class="nav-item">
+                            <a href="/neuproduct" class="nav-link">Neuprodukt</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/aufnahme" class="nav-link">Produktannahme</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/versand" class="nav-link">Produktausgabe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/productliste" class="nav-link">Produktliste</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/logout" class="nav-link">Logout</a>
+                        </li>
+                    <% } %>
+                    <% if(!displayLink) { %>
+                        <li class="nav-item">
+                            <a href="/login" class="nav-link">Login</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 style="margin-bottom: 2rem; background-color: antiquewhite;">Produktliste</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-2">
+        <div class="row">
+            <div class="col-5">
+                <% if(messages.info) { %>
+                    <div style="height: 3rem; padding-top: 0.7rem;" class="alert alert-warning"><%= messages.info %></div>
+                <%  } %>
+            </div>
+            <div class="col-3 offset-4">
+                <form class="d-flex justify-content-center" action="/search" method="get" enctype="multipart/form-data">
+                    <input style="background-color: azure;" class="form-control search-input" type="text" name="search" placeholder="Search">
+                    <button class="search-btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-success table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="col-1">No</th>
+                            <th scope="col" class="col-2">Id</th>
+                            <th scope="col" class="col-2">Name</th>
+                            <th scope="col" class="col-2">Price</th>
+                            <th scope="col" class="col-2">Menge</th>
+                            <th scope="col" class="col-1">Anzeigen</th>
+                            <th scope="col" class="col-1">Löschen</th>
+                            <th scope="col" class="col-1">Aktualisieren</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let i=0; i< items.length; i++) { %>
+                            <tr>
+                                <td scope="row">
+                                    <%= (i+1) %>
+                                </td>
+                                <td scope="row">
+                                    <%= items[i].id %>
+                                </td>
+                                <td>
+                                    <%= items[i].name %>
+                                </td>
+                                <td>
+                                    <%= items[i].price %>
+                                </td>
+                                <td>
+                                    <%= items[i].menge %>
+                                </td>
+                                <td>
+                                    <a href="/product/<%= items[i].id %>"><button class="btn-small btn-info"
+                                            style="border-radius: 5px;">SHOW</button></a>
+                                </td>
+                                <td>
+                                    <form action="/productliste/delete/<%= items[i].id %>?_method=DELETE" method="post">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button class="btn-small btn-danger" style="border-radius: 5px;">DELETE</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a href="/update/<%= items[i].id %>"><button class="btn-small btn-warning"
+                                            style="border-radius: 5px;">UPDATE</button></a>
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

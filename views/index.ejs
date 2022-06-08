@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Unsere Produkte</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row navbar">
+            <div class="col-12">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Startseite</a>
+                    </li>
+                    <% if(displayLink) { %>
+                        <li class="nav-item">
+                            <a href="/neuproduct" class="nav-link">Neuprodukt</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/aufnahme" class="nav-link">Produktannahme</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/versand" class="nav-link">Produktausgabe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/productliste" class="nav-link">Produktliste</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/logout" class="nav-link">Logout</a>
+                        </li>
+                    <% } %>
+                    <% if(!displayLink) { %>
+                    <li class="nav-item">
+                        <a href="/login" class="nav-link">Login</a>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" >
+        <div class="row">
+            <div class="col-12">
+                <h1 style="text-align: center;">Unsere Produkte</h1>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <% if(messages.info) { %>
+                        <div class="alert alert-success"><%= messages.info %></div>
+                    <% } %>
+                    <% if(messages.info2) { %>
+                        <div class="alert alert-danger"><%= messages.info2 %></div>
+                    <% } %>
+                </div>
+            </div>
+        </div>   
+    
+   
+    <div class="container" style="margin-top: 2rem;">
+        <div class="row">
+            <% items.forEach( product => { %>
+                <div class="col-sm-12 col-md-6 col-lg-4" style="border: 1px solid black; text-align: center;">
+                    <a href="/product/<%= product.id %>"><img src="../images/<%= product.image %> "></a>
+                    <br>
+                    <%= product.name %>
+                </div>
+            <% }) %>
+        </div>  
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
